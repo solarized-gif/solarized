@@ -1,1 +1,1 @@
-# solarized-gif.github.io
+# solarized-gif.github.io/solarized/
