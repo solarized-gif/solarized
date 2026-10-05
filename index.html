@@ -1,1 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Name</title>
+<style>
+/* ===== DESIGN TOKENS: change colors, glass strength and fonts here ===== */
+:root{
+  --page:#e8ecf4; --ink:#1d1d1f; --ink-2:rgba(29,29,31,.66);
+  --glass:rgba(255,255,255,.34); --sheet:rgba(255,255,255,.7);
+  --rim:rgba(255,255,255,.9); --shadow:rgba(40,50,90,.24);
+  --veil:rgba(255,255,255,.16); --bg-dim:1; --accent:#0a84ff;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",system-ui,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --page:#07090f; --ink:#f5f5f7; --ink-2:rgba(245,245,247,.68);
+    --glass:rgba(255,255,255,.09); --sheet:rgba(28,30,42,.62);
+    --rim:rgba(255,255,255,.3); --shadow:rgba(0,0,0,.55);
+    --veil:rgba(5,8,18,.4); --bg-dim:.6;
+  }
+}
+:root[data-theme="dark"]{
+  --page:#07090f; --ink:#f5f5f7; --ink-2:rgba(245,245,247,.68);
+  --glass:rgba(255,255,255,.09); --sheet:rgba(28,30,42,.62);
+  --rim:rgba(255,255,255,.3); --shadow:rgba(0,0,0,.55);
+  --veil:rgba(5,8,18,.4); --bg-dim:.6;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
+/* ===== BACKGROUND (set CONFIG.background to use your own photo) ===== */
+.bg{position:fixed;inset:-12%;z-index:-2;background-color:var(--page);background-size:cover;background-position:center;
+  background-image:radial-gradient(40% 36% at 20% 24%,#5b8cff,transparent 70%),radial-gradient(34% 40% at 82% 18%,#ff7ab8,transparent 70%),radial-gradient(44% 40% at 72% 82%,#ffb36b,transparent 70%),radial-gradient(40% 40% at 24% 86%,#6be3c9,transparent 70%);
+  filter:blur(var(--bg-blur,40px)) saturate(1.15) brightness(var(--bg-dim))}
+.bg{animation:drift 26s ease-in-out infinite alternate;translate:0 calc(var(--sy,0)*-.08px)}
+@keyframes drift{to{transform:translate3d(-2%,2%,0) scale(1.08) rotate(2deg)}}
+.veil{position:fixed;inset:0;z-index:-1;background:var(--veil)}
+
+/* ===== LIQUID GLASS: add class "glass" to any element ===== */
+.glass{position:relative;isolation:isolate;background:var(--glass);border-radius:var(--r,26px);
+  -webkit-backdrop-filter:blur(26px) saturate(190%) brightness(1.05);backdrop-filter:blur(26px) saturate(190%) brightness(1.05);
+  box-shadow:inset 0 1px 0 var(--rim),inset 0 -12px 22px -16px var(--rim),0 18px 40px -18px var(--shadow),0 2px 6px rgba(0,0,0,.06);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.75),rgba(255,255,255,0) 38%,rgba(255,255,255,0) 62%,rgba(255,255,255,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.glass::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(190px circle at var(--mx,50%) var(--my,-30%),rgba(255,255,255,.36),transparent 65%)}
+.glass:hover::after{opacity:1}
+
+/* ===== LAYOUT ===== */
+[hidden]{display:none!important}
+.page{max-width:620px;margin:0 auto;padding:68px 16px 48px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.hero{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;translate:0 calc(var(--sy,0)*.15px);opacity:calc(1 - var(--sy,0)/520)}
+.rise{animation:rise .9s cubic-bezier(.2,.9,.25,1.1) backwards;animation-delay:var(--dl,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.95);filter:blur(10px)}}
+@keyframes drop{from{opacity:0;transform:translateY(.45em) scale(.8);filter:blur(12px)}}
+@keyframes spin{to{rotate:360deg}}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(48,209,88,0)}100%{box-shadow:0 0 0 0 rgba(48,209,88,0)}}
+.avatar{--r:50%;width:clamp(100px,26vw,124px);aspect-ratio:1;padding:6px;margin-bottom:6px}
+.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.halo{position:absolute;inset:-9px;z-index:-1;border-radius:50%;background:conic-gradient(#5b8cff,#ff7ab8,#ffb36b,#6be3c9,#5b8cff);filter:blur(16px);opacity:.6;animation:spin 9s linear infinite}
+h1{margin:0;font-size:clamp(2.8rem,12vw,6.5rem);line-height:1;letter-spacing:-.045em;font-weight:700}
+.wd{display:inline-block;white-space:nowrap}
+.ch{display:inline-block;animation:drop 1s cubic-bezier(.2,.9,.25,1.15) backwards;animation-delay:calc(var(--i)*45ms + 250ms)}
+.tagline{margin:0;color:var(--ink-2);font-size:clamp(1rem,2.4vw,1.2rem)}
+.chip{--r:999px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;font-size:.85rem;color:var(--ink-2)}
+.dot{width:8px;height:8px;border-radius:50%;background:#30d158;animation:pulse 2s infinite}
+
+/* toolbar + toast */
+.bar{position:fixed;top:max(14px,env(safe-area-inset-top,0px));right:14px;z-index:5;display:flex;gap:10px}
+.tool{--r:50%;width:44px;height:44px;border:0;display:grid;place-items:center;color:var(--ink);cursor:pointer}
+.tool svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tool:active{scale:.9}
+.toast{--r:999px;position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom,0px));z-index:6;padding:12px 20px;font-size:.9rem;translate:-50% 20px;opacity:0;pointer-events:none;transition:opacity .3s,translate .4s cubic-bezier(.2,.9,.25,1.2)}
+.toast.show{opacity:1;translate:-50% 0}
+
+/* socials */
+.links{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.link{--r:28px;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"i a" "t t";gap:16px 8px;padding:16px;color:inherit;text-decoration:none;
+  transform:perspective(700px) translateY(var(--ty,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,scale .2s}
+.link:last-child:nth-child(odd){grid-column:1/-1}
+.link:hover{--ty:-3px}
+.link:active{scale:.97}
+.ico{grid-area:i;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--page)}
+.ico svg{width:20px;height:20px;fill:currentColor}
+.ico svg.s{fill:none;stroke:currentColor;stroke-width:2}
+.arrow{grid-area:a;justify-self:end;color:var(--ink-2);transition:transform .3s}
+.link:hover .arrow{transform:translate(2px,-2px)}
+.txt{grid-area:t;min-width:0}
+.txt b{display:block;font-weight:600;font-size:1.02rem}
+.txt small{color:var(--ink-2);font-size:.88rem;overflow-wrap:anywhere}
+.legal-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.legal-nav a{--r:999px;min-height:44px;display:inline-flex;align-items:center;padding:0 20px;font-size:.88rem;color:var(--ink-2);text-decoration:none}
+.legal-nav a:hover{color:var(--ink)}
+
+/* intro: highlights itself in one go once visible */
+.intro{--r:34px;width:100%;padding:clamp(24px,5vw,40px);opacity:0;transform:translateY(34px) scale(.96);filter:blur(8px);transition:opacity .8s,transform .9s cubic-bezier(.2,.9,.25,1),filter .8s}
+.intro.on{opacity:1;transform:none;filter:none}
+.intro p{margin:0;font-size:clamp(1.25rem,3.4vw,1.9rem);line-height:1.3;font-weight:600;letter-spacing:-.02em}
+.w{display:inline-block;opacity:.16;filter:blur(4px);transition:opacity .6s,filter .6s;transition-delay:calc(var(--i)*40ms + 350ms)}
+.on .w{opacity:1;filter:none}
+
+/* snake */
+.game{--r:34px;width:min(380px,100%);padding:16px;text-align:center}
+.stack{position:relative;border-radius:22px;overflow:hidden;background:rgba(127,127,127,.12)}
+canvas{display:block;width:100%;height:auto;aspect-ratio:1;touch-action:none}
+.over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.over b{font-size:1.4rem;letter-spacing:-.02em}
+.over span{color:var(--ink-2);font-size:.9rem}
+.btn{margin-top:10px;min-height:44px;padding:0 26px;border:0;border-radius:999px;background:var(--ink);color:var(--page);font:inherit;font-weight:600;cursor:pointer}
+.score{margin-top:12px;display:flex;justify-content:center;gap:18px;color:var(--ink-2);font-size:.9rem}
+.score b{color:var(--ink)}
+
+/* ===== LEGAL SHEET ===== */
+dialog{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);width:min(680px,calc(100vw - 24px));max-width:none;overflow:visible}
+dialog::backdrop{background:rgba(10,14,28,.38);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.sheet{display:flex;flex-direction:column;max-height:min(82vh,780px);max-height:min(82svh,780px);border-radius:32px;overflow:hidden;background:var(--sheet);
+  -webkit-backdrop-filter:blur(34px) saturate(190%);backdrop-filter:blur(34px) saturate(190%);box-shadow:inset 0 1px 0 var(--rim),0 30px 80px -20px var(--shadow)}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;padding:20px 20px 10px 28px}
+.sheet-head h2{margin:0;font-size:1.5rem;letter-spacing:-.02em}
+.close{width:44px;height:44px;border:0;border-radius:50%;cursor:pointer;color:var(--ink);background:rgba(127,127,127,.2);font-size:1.4rem;line-height:1}
+.sheet-body{overflow:auto;padding:4px 28px 30px;line-height:1.6;font-size:.95rem}
+.sheet-body h3{font-size:1rem;margin:1.5em 0 .3em}
+.sheet-body p{margin:.25em 0}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .intro,.w{opacity:1;filter:none;transform:none}
+  .bg,.hero{translate:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div><div class="veil"></div>
+
+<div class="bar">
+  <button class="glass tool" id="theme" aria-label="Toggle light or dark mode"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 010 18z" fill="currentColor"/></svg></button>
+  <button class="glass tool" id="share" aria-label="Share this page"><svg viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg></button>
+</div>
+
+<main class="page">
+  <header class="hero">
+    <div class="glass avatar rise" style="--dl:100ms"><i class="halo"></i><img id="avatar" alt="Profile picture" width="124" height="124"></div>
+    <h1 id="name"></h1>
+    <p class="tagline rise" style="--dl:800ms" id="tagline"></p>
+    <div class="glass chip rise" style="--dl:880ms"><i class="dot"></i><span id="clock"></span></div>
+  </header>
+  <nav class="links" id="links" aria-label="Social profiles"></nav>
+  <nav class="legal-nav" id="legalNav" aria-label="Rechtliches"></nav>
+  <section class="glass intro" id="intro"><p id="introText"></p></section>
+  <section class="glass game" id="game" aria-label="Snake minigame">
+    <div class="stack">
+      <canvas id="snake" width="280" height="280"></canvas>
+      <div class="over" id="over"><b id="overTitle">Snake</b><span id="overSub">Swipe or use the arrow keys</span><button class="btn" id="play">Play</button></div>
+    </div>
+    <div class="score"><span>Score <b id="score">0</b></span><span>Best <b id="best">0</b></span></div>
+  </section>
+</main>
+<div class="toast glass" id="toast" role="status"></div>
+
+<dialog id="legal" lang="de" aria-labelledby="legalTitle">
+  <div class="sheet">
+    <div class="sheet-head"><h2 id="legalTitle"></h2><button class="close" id="legalClose" aria-label="Schließen">&times;</button></div>
+    <div class="sheet-body" id="legalBody"></div>
+  </div>
+</dialog>
+
+<script>
+/* ===================================================================
+   CONFIG: everything you will want to change later lives here.
+   =================================================================== */
+const CONFIG = {
+  name: "Your Name",
+  tagline: "A short line about what you do",
+  place: "[Your City]",          // shown next to your live local time
+  timezone: "Europe/Berlin",   // IANA time zone
+  avatar: "",            // image URL or data URI. Empty = placeholder
+  background: "",        // image URL or data URI. Empty = gradient placeholder
+  backgroundBlur: 40,    // px
+  intro: "Hi, I'm [Your Name]. This is a short introduction about who I am, what I make and what you can expect from my channels. Replace this text with your own words: where you're from, what you love doing and why it's worth following along. Two accounts, one place. Everything else is a tap away below.",
+  links: [
+    { icon: "tiktok",    label: "Main TikTok",   handle: "@username_one", url: "https://www.tiktok.com/@username_one" },
+    { icon: "tiktok",    label: "Second TikTok", handle: "@username_two", url: "https://www.tiktok.com/@username_two" },
+    { icon: "instagram", label: "Instagram",     handle: "@username",     url: "https://www.instagram.com/username" },
+    { icon: "youtube",   label: "YouTube",       handle: "@username",     url: "https://www.youtube.com/@username" },
+    { icon: "discord",   label: "Discord server", handle: "Join the community", url: "https://discord.gg/invite-code" }
+    // add more: { icon: "link", label: "...", handle: "...", url: "https://..." }
+  ],
+  legal: [
+    { id: "impressum", title: "Impressum", sections: [
+      { h: "Angaben gemäß § 5 DDG", p: ["[Vor- und Nachname]", "[Straße und Hausnummer]", "[PLZ und Ort]"] },
+      { h: "Kontakt", p: ["E-Mail: [E-Mail-Adresse]", "Telefon: [Telefonnummer, optional]"] },
+      { h: "Umsatzsteuer-ID", p: ["Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr., falls vorhanden]"] },
+      { h: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV", p: ["[Vor- und Nachname, Anschrift wie oben]"] },
+      { h: "Verbraucherstreitbeilegung", p: ["Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."] },
+      { h: "Haftung für Links", p: ["Diese Seite verlinkt auf externe Angebote (TikTok). Auf deren Inhalte habe ich keinen Einfluss. Verantwortlich ist ausschließlich der jeweilige Anbieter."] }
+    ]},
+    { id: "datenschutz", title: "Datenschutzerklärung", sections: [
+      { h: "Verantwortlicher", p: ["Verantwortlich im Sinne der DSGVO ist: [Vor- und Nachname, Anschrift, E-Mail-Adresse]."] },
+      { h: "Hosting und Server-Logfiles", p: [
+        "Diese Website wird bei [Hosting-Anbieter, Ort] gehostet. Beim Aufruf werden technisch notwendige Daten in Server-Logfiles verarbeitet: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp und Betriebssystem. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (sicherer und stabiler Betrieb der Website). Die Logfiles werden nach [Speicherdauer] gelöscht.",
+        "[Hinweis zum Auftragsverarbeitungsvertrag nach Art. 28 DSGVO mit dem Hosting-Anbieter prüfen und ergänzen.]"] },
+      { h: "Cookies, Tracking und Schriftarten", p: ["Diese Website setzt keine Cookies, nutzt keine Analyse- oder Tracking-Dienste und lädt keine externen Schriftarten."] },
+      { h: "Externe Links (TikTok)", p: ["Diese Seite enthält Links zu zwei TikTok-Profilen. Es werden keine TikTok-Inhalte eingebunden. Daten werden erst übertragen, wenn du einen Link anklickst. Ab dann gilt die Datenschutzerklärung von TikTok."] },
+      { h: "Deine Rechte", p: [
+        "Du hast das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO). Wende dich dazu an die oben genannte Adresse.",
+        "Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren: [zuständige Aufsichtsbehörde]."] },
+      { h: "Stand", p: ["[Datum]"] }
+    ]}
+  ]
+};
+
+/* ===== Icons: add your own by key ===== */
+const ICONS = {
+  tiktok: '<svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>',
+  link: '<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1-1.4-1.4 1-1a7 7 0 019.8 9.8l-3 3a7 7 0 01-9.8 0zM14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1 1.4 1.4-1 1a7 7 0 01-9.8-9.8l3-3a7 7 0 019.8 0z"/></svg>'
+};
+const PLACEHOLDER_AVATAR = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ab4ff"/><stop offset="1" stop-color="#ff9ad0"/></linearGradient></defs><rect width="100" height="100" fill="url(#g)"/><circle cx="50" cy="39" r="17" fill="#fff" fill-opacity=".85"/><path d="M18 92c4-20 18-30 32-30s28 10 32 30z" fill="#fff" fill-opacity=".85"/></svg>');
+
+Object.assign(ICONS, {
+  instagram: '<svg class="s" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>',
+  youtube: '<svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M21.6 7.2a2.5 2.5 0 00-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 002.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 001.8 1.8C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.5 2.5 0 001.800-1.800c.4-1.600.4-4.800.4-4.800s0-3.200-.4-4.800zM10 15V9l5.200 3z"/></svg>',
+  discord: '<svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19.300 5.300A16.500 16.500 0 0015.200 4l-.5 1a15 15 0 00-5.400 0l-.5-1A16.500 16.500 0 004.700 5.300C2.100 9.200 1.400 13 1.700 16.700a16.600 16.600 0 005.100 2.600l1.100-1.800c-.6-.2-1.200-.5-1.700-.9l.4-.3c3.300 1.500 6.900 1.500 10.200 0l.4.3c-.5.400-1.100.7-1.700.9l1.100 1.800a16.600 16.600 0 005.100-2.600c.4-4.300-.7-8.100-3.400-11.400zM9 14.500c-.8 0-1.500-.7-1.500-1.700S8.200 11.100 9 11.100s1.500.8 1.500 1.700-.7 1.700-1.500 1.700zm6 0c-.8 0-1.500-.7-1.500-1.700s.7-1.700 1.500-1.700 1.500.8 1.500 1.700-.7 1.700-1.500 1.700z"/></svg>'
+});
+const ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>';
+
+/* ===== Rendering ===== */
+const $ = id => document.getElementById(id);
+const h = (tag, attrs = {}, ...kids) => {
+  const el = document.createElement(tag);
+  for (const k in attrs) k === "html" ? (el.innerHTML = attrs[k]) : el.setAttribute(k, attrs[k]);
+  el.append(...kids);
+  return el;
+};
+
+document.title = CONFIG.name;
+$("name").setAttribute("aria-label", CONFIG.name);
+let n = 0;
+CONFIG.name.split(" ").forEach((w, k, a) => {
+  const wd = h("span", { class: "wd", "aria-hidden": "true" });
+  [...w].forEach(c => wd.append(h("span", { class: "ch", style: `--i:${n++}` }, c)));
+  $("name").append(wd, k < a.length - 1 ? " " : "");
+});
+$("tagline").textContent = CONFIG.tagline;
+$("avatar").src = CONFIG.avatar || PLACEHOLDER_AVATAR;
+$("bg").style.setProperty("--bg-blur", CONFIG.backgroundBlur + "px");
+if (CONFIG.background) $("bg").style.backgroundImage = `url("${CONFIG.background}")`;
+
+const words = CONFIG.intro.split(/\s+/).map((w, i) => h("span", { class: "w", style: `--i:${i}` }, w));
+words.forEach((w, i) => $("introText").append(w, i < words.length - 1 ? " " : ""));
+
+CONFIG.links.forEach((l, i) => $("links").append(
+  h("a", { class: "glass link rise", style: `--dl:${900 + i * 90}ms`, href: l.url, target: "_blank", rel: "noopener noreferrer me" },
+    h("span", { class: "ico", html: ICONS[l.icon] || ICONS.link }),
+    h("span", { class: "arrow", html: ARROW }),
+    h("span", { class: "txt" }, h("b", {}, l.label), h("small", {}, l.handle)))
+));
+CONFIG.legal.forEach((d, i) => $("legalNav").append(
+  h("a", { class: "glass rise", style: `--dl:${900 + (CONFIG.links.length + i) * 90}ms`, href: "#" + d.id, "data-legal": d.id, lang: "de" }, d.title)
+));
+
+/* ===== Legal sheet ===== */
+const dlg = $("legal");
+function openLegal(id) {
+  const d = CONFIG.legal.find(x => x.id === id);
+  if (!d) return;
+  $("legalTitle").textContent = d.title;
+  $("legalBody").replaceChildren(...d.sections.flatMap(s => [h("h3", {}, s.h), ...s.p.map(t => h("p", {}, t))]));
+  $("legalBody").scrollTop = 0;
+  if (!dlg.open) dlg.showModal();
+}
+$("legalNav").addEventListener("click", e => {
+  const a = e.target.closest("[data-legal]");
+  if (!a) return;
+  e.preventDefault();
+  openLegal(a.dataset.legal);
+  try { history.replaceState(null, "", "#" + a.dataset.legal); } catch (_) {}
+});
+$("legalClose").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener("close", () => { try { history.replaceState(null, "", location.pathname + location.search); } catch (_) {} });
+const syncHash = () => { const id = location.hash.slice(1); CONFIG.legal.some(d => d.id === id) ? openLegal(id) : dlg.open && dlg.close(); };
+addEventListener("hashchange", syncHash);
+syncHash();
+
+/* ===== Pointer: glare on all glass, 3D tilt on link tiles ===== */
+document.querySelectorAll(".glass").forEach(g => {
+  g.addEventListener("pointermove", e => {
+    const r = g.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    g.style.setProperty("--mx", x + "px"); g.style.setProperty("--my", y + "px");
+    if (g.classList.contains("link") && e.pointerType === "mouse") {
+      g.style.setProperty("--ry", (x / r.width - .5) * 12 + "deg");
+      g.style.setProperty("--rx", (.5 - y / r.height) * 12 + "deg");
+    }
+  });
+  g.addEventListener("pointerleave", () => { g.style.setProperty("--rx", "0deg"); g.style.setProperty("--ry", "0deg"); });
+});
+
+/* ===== Scroll parallax (CSS reads --sy) and intro reveal ===== */
+addEventListener("scroll", () => document.documentElement.style.setProperty("--sy", scrollY), { passive: true });
+new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("on"); o.disconnect(); } }), { threshold: .3 }).observe($("intro"));
+
+/* ===== Live local time ===== */
+const clock = () => {
+  try { $("clock").textContent = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: CONFIG.timezone }).format(new Date()) + " in " + CONFIG.place; }
+  catch (_) { $("clock").parentElement.hidden = true; }
+};
+clock(); setInterval(clock, 15000);
+
+/* ===== Theme toggle and share ===== */
+const root = document.documentElement;
+$("theme").addEventListener("click", () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+});
+const toast = m => { const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(toast.id); toast.id = setTimeout(() => t.classList.remove("show"), 2200); };
+const copy = async url => { try { await navigator.clipboard.writeText(url); toast("Link copied"); } catch (_) { toast("Couldn't copy the link"); } };
+$("share").addEventListener("click", async () => {
+  const url = location.href.split("#")[0];
+  if (!navigator.share) return copy(url);
+  try { await navigator.share({ title: CONFIG.name, url }); } catch (e) { if (e.name !== "AbortError") copy(url); }
+});
+
+/* ===== Snake ===== */
+(() => {
+  const cv = $("snake"), c = cv.getContext("2d"), N = 14, S = cv.width / N, ov = $("over");
+  let sn, dir, nxt, food, score, best = 0, timer, state = "idle", speed;
+  const same = (a, b) => a.x === b.x && a.y === b.y;
+  const spawn = () => { do food = { x: Math.floor(Math.random() * N), y: Math.floor(Math.random() * N) }; while (sn.some(p => same(p, food))); };
+  const show = (t, s, b) => { $("overTitle").textContent = t; $("overSub").textContent = s; $("play").textContent = b; ov.hidden = false; };
+  const draw = () => {
+    c.clearRect(0, 0, cv.width, cv.height);
+    c.fillStyle = getComputedStyle(root).getPropertyValue("--ink-2"); c.globalAlpha = .18;
+    for (let x = 0; x < N; x++) for (let y = 0; y < N; y++) c.fillRect(x * S + S / 2 - 1, y * S + S / 2 - 1, 2, 2);
+    c.globalAlpha = 1;
+    if (!sn) return;
+    c.fillStyle = "#ff5a8a"; c.beginPath(); c.arc(food.x * S + S / 2, food.y * S + S / 2, S * .36, 0, 7); c.fill();
+    sn.forEach((p, i) => { c.fillStyle = `hsl(${210 + i * 7} 90% 62%)`; c.beginPath(); c.roundRect(p.x * S + 1.5, p.y * S + 1.5, S - 3, S - 3, i ? 6 : 9); c.fill(); });
+  };
+  const run = () => { state = "play"; ov.hidden = true; clearInterval(timer); timer = setInterval(step, speed); draw(); };
+  const start = () => { sn = [{ x: 7, y: 7 }, { x: 6, y: 7 }, { x: 5, y: 7 }]; dir = nxt = { x: 1, y: 0 }; score = 0; speed = 150; $("score").textContent = 0; spawn(); run(); };
+  const pause = () => { if (state === "play") { clearInterval(timer); state = "pause"; show("Paused", "Take your time", "Resume"); } };
+  function step() {
+    dir = nxt;
+    const hd = { x: (sn[0].x + dir.x + N) % N, y: (sn[0].y + dir.y + N) % N };
+    if (sn.some(p => same(p, hd))) {
+      clearInterval(timer); state = "idle"; best = Math.max(best, score); $("best").textContent = best;
+      return show("Game over", "You scored " + score, "Play again");
+    }
+    sn.unshift(hd);
+    if (same(hd, food)) { score++; $("score").textContent = score; spawn(); if (speed > 70) { speed -= 5; run(); } } else sn.pop();
+    draw();
+  }
+  const turn = (x, y) => { if (state === "play" && (x !== -dir.x || y !== -dir.y)) nxt = { x, y }; };
+  addEventListener("keydown", e => {
+    const k = { ArrowUp: [0, -1], w: [0, -1], ArrowDown: [0, 1], s: [0, 1], ArrowLeft: [-1, 0], a: [-1, 0], ArrowRight: [1, 0], d: [1, 0] }[e.key];
+    if (k && state === "play") { e.preventDefault(); turn(...k); }
+  });
+  let t0;
+  cv.addEventListener("touchstart", e => { t0 = e.touches[0]; }, { passive: true });
+  cv.addEventListener("touchend", e => {
+    const t = e.changedTouches[0], dx = t.clientX - t0.clientX, dy = t.clientY - t0.clientY;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return;
+    Math.abs(dx) > Math.abs(dy) ? turn(Math.sign(dx), 0) : turn(0, Math.sign(dy));
+  });
+  $("play").addEventListener("click", () => state === "pause" ? run() : start());
+  new IntersectionObserver(([e]) => { if (!e.isIntersecting) pause(); }).observe($("game"));
+  document.addEventListener("visibilitychange", () => document.hidden && pause());
+  draw();
+})();
+</script>
+</body>
+</html>
