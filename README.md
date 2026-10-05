@@ -1,1 +1,1 @@
-# solarized
+# solarized-gif.github.io
