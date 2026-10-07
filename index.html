@@ -10,6 +10,7 @@
 <style>
 
 /* disclaimer: i vibecoded most of this cuz im lazy */
+
 :root{
   --page:#e8ecf4; --ink:#1d1d1f; --ink-2:rgba(29,29,31,.66);
   --glass:rgba(255,255,255,.34); --sheet:rgba(255,255,255,.7);
@@ -37,14 +38,12 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
-/* ===== BACKGROUND (set CONFIG.background to use your own photo) ===== */
 .bg{position:fixed;inset:-12%;z-index:-2;background-color:var(--page);background-size:cover;background-position:center;
   background-image:radial-gradient(40% 36% at 20% 24%,#5b8cff,transparent 70%),radial-gradient(34% 40% at 82% 18%,#ff7ab8,transparent 70%),radial-gradient(44% 40% at 72% 82%,#ffb36b,transparent 70%),radial-gradient(40% 40% at 24% 86%,#6be3c9,transparent 70%);
   filter:blur(var(--bg-blur,40px)) saturate(1.15) brightness(var(--bg-dim))}
 .bg{will-change:transform}
 .veil{position:fixed;inset:0;z-index:-1;background:var(--veil)}
 
-/* ===== LIQUID GLASS: add class "glass" to any element ===== */
 .glass{position:relative;isolation:isolate;background:var(--glass);border-radius:var(--r,26px);
   -webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);
   box-shadow:inset 0 1px 0 var(--rim),inset 0 -12px 22px -16px var(--rim),0 18px 40px -18px var(--shadow),0 2px 6px rgba(0,0,0,.06);
@@ -56,7 +55,6 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);-w
   background:radial-gradient(190px circle at var(--mx,50%) var(--my,-30%),rgba(255,255,255,.36),transparent 65%)}
 .glass:hover::after{opacity:1}
 
-/* ===== LAYOUT ===== */
 *{-webkit-tap-highlight-color:transparent}
 a,button{touch-action:manipulation;-webkit-touch-callout:none}
 button{font:inherit;-webkit-user-select:none;user-select:none}
@@ -79,8 +77,7 @@ h1{margin:0;font-size:clamp(2.6rem,11vw,5.5rem);line-height:1;letter-spacing:-.0
 .chip{--r:999px;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;font-size:.88rem;color:var(--ink-2)}
 .dot{width:8px;height:8px;border-radius:50%;background:#30d158;animation:pulse 2s infinite}
 
-/* toolbar, progress, toast */
-.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:7;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--a3),var(--a1),var(--a2))}
+.prog{position:fixed;top:0;left:0;right:0;height:4px;z-index:7;background:linear-gradient(90deg,var(--a3),var(--a1),var(--a2));-webkit-mask:radial-gradient(circle,#000 1.3px,transparent 1.8px) 0 0/6px 4px;mask:radial-gradient(circle,#000 1.3px,transparent 1.8px) 0 0/6px 4px;clip-path:inset(0 100% 0 0)}
 .bar{position:fixed;top:max(14px,env(safe-area-inset-top,0px));right:14px;z-index:5;display:flex;gap:10px}
 .tool{--r:50%;width:44px;height:44px;border:0;display:grid;place-items:center;color:var(--ink);cursor:pointer}
 .tool svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -88,7 +85,6 @@ h1{margin:0;font-size:clamp(2.6rem,11vw,5.5rem);line-height:1;letter-spacing:-.0
 .toast{--r:999px;position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom,0px));z-index:6;padding:12px 20px;font-size:.9rem;translate:-50% 20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,translate .4s cubic-bezier(.2,.9,.25,1.2),visibility .4s}
 .toast.show{opacity:1;visibility:visible;translate:-50% 0}
 
-/* socials */
 .links{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
 .link{--r:28px;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"i a" "t t";gap:16px 8px;padding:16px;color:inherit;text-decoration:none;
   transform:perspective(700px) translateY(var(--ty,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,scale .2s}
@@ -107,7 +103,6 @@ h1{margin:0;font-size:clamp(2.6rem,11vw,5.5rem);line-height:1;letter-spacing:-.0
 .legal-nav a{--r:999px;min-height:44px;display:inline-flex;align-items:center;padding:0 20px;font-size:.88rem;color:var(--ink-2);text-decoration:none}
 .legal-nav a:hover{color:var(--ink)}
 
-/* scroll-linked intro, stats, contact */
 .intro{--r:32px;padding:clamp(24px,5vw,36px)}
 .intro p{margin:0;font-size:clamp(1.25rem,3.4vw,1.8rem);line-height:1.3;font-weight:600;letter-spacing:-.02em}
 .w{opacity:.16}
@@ -119,7 +114,6 @@ h1{margin:0;font-size:clamp(2.6rem,11vw,5.5rem);line-height:1;letter-spacing:-.0
 .contact small{color:var(--ink-2);overflow-wrap:anywhere}
 .btn{min-height:44px;padding:0 22px;border:0;border-radius:999px;background:var(--ink);color:var(--page);font-weight:600;cursor:pointer;white-space:nowrap}
 
-/* arcade */
 .arcade{--r:32px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .arcade>*{width:min(100%,300px)}
 .seg{position:relative;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:999px;background:rgba(127,127,127,.16)}
@@ -127,7 +121,7 @@ h1{margin:0;font-size:clamp(2.6rem,11vw,5.5rem);line-height:1;letter-spacing:-.0
 .seg button.on{color:var(--ink)}
 .pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:999px;background:var(--glass);box-shadow:inset 0 1px 0 var(--rim),0 4px 12px -4px var(--shadow);transition:transform .45s cubic-bezier(.3,1.3,.4,1)}
 .arcade[data-g="tetris"] .pill{transform:translateX(100%)}
-.arcade[data-g="snake"] [data-k="X"]{visibility:hidden}
+.arcade[data-g="snake"] [data-k="X"]{display:none}
 .stack{position:relative;border-radius:22px;overflow:hidden;background:rgba(127,127,127,.12)}
 canvas{display:block;width:100%;height:auto;aspect-ratio:280/320;touch-action:none}
 .over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
@@ -136,12 +130,11 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:280/320;touch-action:no
 .over .btn{margin-top:10px}
 .hud{display:flex;justify-content:space-between;color:var(--ink-2);font-size:.9rem}
 .hud b{color:var(--ink)}
-.pad{display:none;grid-template-columns:repeat(5,1fr);gap:8px}
+.pad{display:none;grid-template-columns:repeat(3,1fr);grid-template-areas:". u ." "l d r";gap:10px;touch-action:none}
 .pad button{min-height:48px;border:0;border-radius:16px;background:rgba(127,127,127,.18);color:var(--ink);font-size:1.1rem}
 .pad button:active{scale:.92}
 @media (pointer:coarse){.pad{display:grid}}
 
-/* ===== EXTRA MOTION (all transform/opacity only) ===== */
 .glow{position:fixed;left:0;top:0;width:420px;height:420px;margin:-210px 0 0 -210px;z-index:-1;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .5s;will-change:transform;background:radial-gradient(circle,hsl(var(--hue) 95% 62% / .34),transparent 65%)}
 .avatar{transform:perspective(600px) rotateX(var(--ax,0deg)) rotateY(var(--ay,0deg));transition:transform .25s ease-out}
 .avatar img{animation:float 6s ease-in-out infinite}
@@ -163,7 +156,6 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:280/320;touch-action:no
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 ::view-transition-new(root){z-index:2}
 
-/* ===== MORE MOTION ===== */
 @keyframes bloom{from{opacity:0}}
 .bg{animation:bloom 1.6s ease-out}
 .ch{animation:drop .9s cubic-bezier(.2,.9,.25,1.15) backwards,wave 5s ease-in-out infinite;animation-delay:calc(var(--i)*45ms + 250ms),calc(var(--i)*140ms + 2s)}
@@ -174,8 +166,6 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:280/320;touch-action:no
 .over .btn{animation:breathe 2.4s ease-in-out infinite}
 @keyframes breathe{50%{transform:scale(1.06)}}
 @media (hover:hover){.legal-nav a:hover{transform:translateY(-2px)}}
-
-/* ===== AVATAR FRAME: concentric corners, follows the picture's proportions ===== */
 
 /* mobile */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -195,7 +185,6 @@ canvas{touch-action:pan-y}
 }
 @media (max-width:340px){.links{grid-template-columns:1fr}}
 
-/* ===== v3: Nothing / Teenage Engineering / Work Louder / Gravastar inspired layer ===== */
 :root{--hue:18;--a1:hsl(var(--hue) 95% 58%);--a2:hsl(calc(var(--hue) + 40) 95% 62%);--a3:hsl(calc(var(--hue) + 200) 80% 62%);--accent:var(--a1);
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;--hair:rgba(127,127,127,.3);--k1:#fff;--k2:#e9ecf3;--k3:rgba(30,40,80,.22)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--k1:#3c3f4c;--k2:#272935;--k3:rgba(0,0,0,.55)}}
@@ -206,7 +195,6 @@ canvas{touch-action:pan-y}
 .sec{display:grid;gap:var(--gap);scroll-margin-top:12px}
 .reveal{transition-delay:var(--d,0ms)}
 
-/* hero: avatar frame and picture are one object (strict 1:1 circle) */
 .hello{display:flex;align-items:center;gap:8px;font:600 .7rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
 .led{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--a1);box-shadow:0 0 8px var(--a1);animation:blink 2.4s ease-in-out infinite}
 @keyframes blink{50%{opacity:.35}}
@@ -220,10 +208,10 @@ h1{font-size:clamp(3rem,15vw,6rem)}
 .contact b{font-size:.95rem}
 .contact small{font-family:var(--mono);font-size:.78rem}
 
-/* section headers and cards */
 .sh{display:flex;align-items:center;gap:10px;margin:0;font:600 .72rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
 .sh b{color:var(--ink)}
-.sh::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--ink-2),transparent);transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.2,.9,.25,1) .25s}
+.sh::after{content:"";flex:1;height:4px;background:radial-gradient(circle,var(--ink-2) 1px,transparent 1.5px) 0 50%/8px 4px repeat-x;-webkit-mask:linear-gradient(90deg,rgba(0,0,0,.2),#000,rgba(0,0,0,.2)) 0 0/200% 100%;mask:linear-gradient(90deg,rgba(0,0,0,.2),#000,rgba(0,0,0,.2)) 0 0/200% 100%;transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.2,.9,.25,1) .25s;animation:sweep 4s linear infinite}
+@keyframes sweep{to{-webkit-mask-position:200% 0;mask-position:200% 0}}
 .sh.in::after{transform:none}
 .card{--r:30px;padding:18px}
 .sub{margin:0 0 12px;font:600 .7rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
@@ -245,13 +233,10 @@ h1{font-size:clamp(3rem,15vw,6rem)}
 .strip{display:block;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--a1),var(--a2),var(--a3),var(--a1));background-size:300% 100%;animation:strip 8s linear infinite}
 @keyframes strip{to{background-position:300% 0}}
 
-/* control deck: knob + keycaps */
 .deck{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
-.deck .strip,.deck .hint{grid-column:1/-1}
-.hint{margin:0;font:600 .66rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
-.knob{--rot:-121deg;position:relative;width:88px;aspect-ratio:1;border-radius:50%;cursor:grab;touch-action:none;
-  background:repeating-conic-gradient(from -1deg,var(--ink-2) 0 2deg,transparent 2deg 15deg);-webkit-mask:radial-gradient(circle,transparent 71%,#000 72%);mask:radial-gradient(circle,transparent 71%,#000 72%)}
-.kcap{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 25%,var(--k1),var(--k2));box-shadow:0 6px 14px -4px var(--shadow),inset 0 1px 0 var(--rim),inset 0 -3px 6px var(--k3);transform:rotate(var(--rot));transition:transform .15s ease-out}
+.deck .strip{grid-column:1/-1}
+.knob{--rot:-121deg;position:relative;width:92px;aspect-ratio:1;border-radius:50%;cursor:grab;touch-action:none}
+.kcap{position:absolute;inset:15%;border-radius:50%;background:radial-gradient(circle at 30% 25%,var(--k1),var(--k2));box-shadow:0 6px 14px -4px var(--shadow),inset 0 1px 0 var(--rim),inset 0 -3px 6px var(--k3);transform:rotate(var(--rot));transition:transform .15s ease-out}
 .kcap b{position:absolute;top:9%;left:50%;width:4px;height:20%;margin-left:-2px;border-radius:2px;background:var(--a1);box-shadow:0 0 8px var(--a1)}
 .knob.drag{cursor:grabbing}
 .knob.drag .kcap{transition:none}
@@ -266,14 +251,8 @@ h1{font-size:clamp(3rem,15vw,6rem)}
 .pad button{background:linear-gradient(var(--k1),var(--k2));box-shadow:inset 0 1px 0 var(--rim),0 3px 0 var(--k3);transition:transform .12s,box-shadow .12s}
 .pad button:active{scale:1;transform:translateY(2px);box-shadow:inset 0 1px 0 var(--rim),0 1px 0 var(--k3)}
 
-/* ticker */
 .ticker{overflow:hidden;padding:12px 0;border-block:1px solid var(--hair);-webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
-.trk{display:flex;width:max-content;will-change:transform}
-.trk div{display:flex;flex-shrink:0}
-.trk span{position:relative;padding:0 22px;font:600 .76rem var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
-.trk span::after{content:"";position:absolute;right:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--a1)}
 
-/* dock */
 .dock{--r:999px;position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:6;display:flex;gap:2px;padding:5px;translate:-50% 170%;transition:translate .6s cubic-bezier(.3,1.3,.4,1)}
 .dock.show{translate:-50% 0}
 .dock a{z-index:1;min-width:44px;min-height:44px;display:grid;place-items:center;padding:0 14px;border-radius:999px;font:600 .68rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;transition:color .3s}
@@ -283,7 +262,6 @@ h1{font-size:clamp(3rem,15vw,6rem)}
 .foot{display:grid;gap:8px;justify-items:center;text-align:center;font:600 .66rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
 .foot span:first-child{display:inline-flex;align-items:center;gap:8px}
 
-/* mobile proportions */
 @media (max-width:560px){
   .links{grid-template-columns:1fr;gap:10px}
   .link{grid-template-columns:auto 1fr auto;grid-template-areas:"i t a";align-items:center;gap:14px;padding:12px 16px 12px 12px}
@@ -293,22 +271,116 @@ h1{font-size:clamp(3rem,15vw,6rem)}
 @media (max-width:380px){.knob{width:76px}.keys{gap:8px}.key{min-height:62px}.dock a{padding:0 9px;font-size:.62rem}}
 @media (prefers-reduced-motion:reduce){.sh::after{transform:none}.dock.show,.dock{translate:-50% 0}}
 
+.hello::before,.hello::after{content:"";width:34px;height:4px;background:radial-gradient(circle,var(--ink-2) 1px,transparent 1.5px) 0 50%/8px 4px repeat-x;opacity:.7}
+.kwrap{display:grid;justify-items:center;gap:8px}
+.kwrap small{font:600 .6rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.tick{position:absolute;inset:0;transform:rotate(var(--a));pointer-events:none}
+.tick::after{content:"";position:absolute;top:0;left:50%;width:2px;height:7px;margin-left:-1px;border-radius:1px;background:var(--ink-2);opacity:.35;transition:background .2s,opacity .2s,box-shadow .2s}
+.tick.on::after{background:var(--a1);opacity:1;box-shadow:0 0 6px var(--a1)}
+.kcap::after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(rgba(127,127,127,.2) 0 3deg,transparent 3deg 12deg);-webkit-mask:radial-gradient(circle,transparent 55%,#000 56%);mask:radial-gradient(circle,transparent 55%,#000 56%)}
+.ticker{padding:10px 0}
+#led{display:block;width:100%;height:56px;aspect-ratio:auto;touch-action:auto}
+.meter{position:fixed;right:5px;top:50%;translate:0 -50%;z-index:4;display:grid;gap:6px;pointer-events:none;opacity:0;transition:opacity .4s}
+.meter.show{opacity:1}
+.meter i{width:4px;height:4px;border-radius:50%;background:var(--ink-2);opacity:.28;transition:opacity .3s,transform .3s,background .3s,box-shadow .3s}
+.meter i.on{opacity:.85}
+.meter i.head{background:var(--a1);opacity:1;transform:scale(1.8);box-shadow:0 0 8px var(--a1)}
+.wave{display:flex;gap:6px}
+.wave i{width:4px;height:4px;border-radius:50%;background:var(--ink-2);animation:wv 1.8s ease-in-out infinite;animation-delay:calc(var(--i)*90ms)}
+@keyframes wv{50%{transform:translateY(-5px) scale(1.5);background:var(--a1)}}
+.reveal .spec li,.reveal .guide li,.reveal .chips span{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .6s cubic-bezier(.2,.9,.25,1);transition-delay:calc(var(--j,0)*70ms + 250ms)}
+.reveal.in .spec li,.reveal.in .guide li,.reveal.in .chips span{opacity:1;transform:none}
+.arcade[data-g="tetris"] .pad{grid-template-areas:"l u r" "d d x"}
+.pad [data-k="L"]{grid-area:l}
+.pad [data-k="U"]{grid-area:u}
+.pad [data-k="R"]{grid-area:r}
+.pad [data-k="D"]{grid-area:d}
+.pad [data-k="X"]{grid-area:x}
+.pad button{min-height:56px;font-size:1.35rem}
+
+.legal-nav{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.legal-nav a{--r:999px;min-height:56px;padding:8px 18px 8px 10px;display:flex;align-items:center;justify-content:flex-start;gap:12px}
+.pi{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--page);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.pi svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sheet-head .pi{width:30px;height:30px}
+.pt{display:grid;gap:2px;min-width:0;text-align:left;line-height:1.2}
+.pt b{font-size:.92rem;font-weight:600;color:var(--ink)}
+.pt small{font:600 .6rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.close svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:17}
+.close:active{scale:.9}
+dialog[open]{animation:sheetIn .5s cubic-bezier(.2,.9,.25,1.1)}
+dialog[open]::backdrop{animation:fadeIn .4s ease-out}
+dialog.out{animation:sheetOut .23s ease-in forwards}
+dialog.out::backdrop{animation:fadeOut .23s ease-in forwards}
+dialog[open] .close{animation:popIn .55s .2s cubic-bezier(.3,1.6,.5,1) backwards}
+dialog[open] .close path{animation:draw .5s .45s ease-out backwards}
+dialog[open] .sheet-body>*{animation:rise .6s cubic-bezier(.2,.9,.25,1.05) backwards;animation-delay:calc(var(--j,0)*40ms + 200ms)}
+@keyframes sheetIn{from{opacity:0;transform:translateY(40px) scale(.94)}}
+@keyframes sheetOut{to{opacity:0;transform:translateY(24px) scale(.96)}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes popIn{from{opacity:0;transform:scale(.4) rotate(-90deg)}}
+@keyframes draw{from{stroke-dashoffset:17}}
+.tool svg{transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+@media (hover:hover){
+  .legal-nav a:hover .pi{transform:rotate(-12deg) scale(1.12)}
+  .close:hover{transform:rotate(90deg) scale(1.1);background:var(--a1);color:#fff}
+  .tool:hover svg{transform:scale(1.15)}
+  #theme:hover svg{transform:rotate(180deg)}
+  .qi:hover svg{transform:scale(1.2) rotate(-8deg)}
+}
+.mini{--r:999px;position:fixed;top:max(14px,env(safe-area-inset-top,0px));left:14px;z-index:5;height:44px;display:flex;align-items:center;gap:10px;padding:0 16px 0 6px;border:0;color:var(--ink);font-weight:600;font-size:.92rem;cursor:pointer;translate:0 -160%;opacity:0;transition:translate .6s cubic-bezier(.3,1.3,.4,1),opacity .3s}
+.mini.show{translate:0 0;opacity:1}
+.mini img{width:32px;height:32px;aspect-ratio:1;border-radius:50%;object-fit:cover}
+.mini span{white-space:nowrap}
+.rail{position:fixed;top:50%;transform:translateY(-50%);z-index:3;display:none;flex-direction:column;gap:14px;width:176px}
+.rail.l{left:calc(50% - 480px);animation:inL .9s 1.3s cubic-bezier(.2,.9,.25,1.05) backwards}
+.rail.r{left:calc(50% + 304px);align-items:center;animation:inR .9s 1.4s cubic-bezier(.2,.9,.25,1.05) backwards}
+@keyframes inL{from{opacity:0;translate:-30px 0}}
+@keyframes inR{from{opacity:0;translate:30px 0}}
+.idxcard{--r:24px;padding:12px 16px 12px 32px}
+#idx{display:grid;gap:2px}
+#idx a{display:flex;align-items:baseline;gap:10px;padding:9px 0;color:var(--ink-2);text-decoration:none;font:600 .72rem var(--mono);letter-spacing:.14em;text-transform:uppercase;transition:color .3s,translate .4s cubic-bezier(.3,1.5,.5,1)}
+#idx a b{font-weight:600;opacity:.6}
+#idx a:hover,#idx a.on{color:var(--ink)}
+#idx a:hover{translate:4px 0}
+#idx a.on b{color:var(--a1);opacity:1}
+.trace{position:absolute;left:12px;top:16px;bottom:16px;width:4px;background:radial-gradient(circle,var(--ink-2) 1px,transparent 1.5px) 50% 0/4px 8px repeat-y;opacity:.7}
+.trace b{position:absolute;left:50%;top:calc(var(--p,0)*100%);width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--a1);box-shadow:0 0 10px var(--a1);transition:top .25s linear}
+.qk{display:grid;gap:10px}
+.qi{--r:50%;width:44px;height:44px;display:grid;place-items:center;color:var(--ink)}
+.qi svg{width:20px;height:20px;fill:currentColor;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.qi svg.s{fill:none;stroke:currentColor;stroke-width:2}
+.livecard{--r:24px;padding:14px;display:grid;gap:12px;justify-items:center}
+#dm2{width:125px;height:35px;aspect-ratio:auto;touch-action:auto}
+.eq{display:flex;gap:4px;height:44px}
+.eq i{flex:none;width:6px;height:100%;background:radial-gradient(circle,var(--a1) 1.4px,transparent 2px) 50% 100%/6px 7px;animation:eq 1.1s ease-in-out infinite alternate;animation-duration:calc(.8s + var(--i)*.06s);animation-delay:calc(var(--i)*-.13s)}
+.eq.hot i{animation-duration:calc(.3s + var(--i)*.02s)}
+@keyframes eq{from{clip-path:inset(75% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@media (min-width:1120px){.rail{display:flex}}
+@media (max-height:640px){.eq{display:none}}
+@media (max-width:480px){.legal-nav{grid-template-columns:1fr}}
+@supports (animation-timeline:view()){
+  .reveal{opacity:1;transform:none;transition:none;animation:enter linear backwards,depth linear forwards;animation-timeline:view(),view();animation-range:entry 0% entry 55%,exit 0% exit 100%}
+  @keyframes enter{from{opacity:0;transform:perspective(900px) translateY(46px) rotateX(12deg) scale(.95)}}
+  @keyframes depth{to{opacity:.3;transform:perspective(900px) translateY(-24px) rotateX(-8deg) scale(.95)}}
+}
+
 /* for the low enders */
 .lite .glass,.lite .over,.lite .sheet{-webkit-backdrop-filter:none;backdrop-filter:none}
 .lite .glass{background:var(--sheet)}
 .lite .glass::after,.lite .halo,.lite .glow,.lite .rip{display:none}
-.lite .avatar img,.lite .tagline,.lite .ico::after,.lite .over .btn,.lite .bg,.lite .orbit,.lite .strip,.lite .led{animation:none}
+.lite .avatar img,.lite .tagline,.lite .ico::after,.lite .over .btn,.lite .bg,.lite .orbit,.lite .strip,.lite .led,.lite .wave i,.lite .sh::after,.lite .eq i,.lite .rail,.lite .reveal{animation:none}
 .lite .avatar{animation:rise .8s cubic-bezier(.2,.9,.25,1.05) backwards;animation-delay:100ms}
 .lite .ch{animation:drop .9s cubic-bezier(.2,.9,.25,1.15) backwards;animation-delay:calc(var(--i)*45ms + 250ms)}
 
-/* ===== LEGAL SHEET ===== */
 dialog{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);width:min(680px,calc(100vw - 24px));max-width:none;overflow:visible}
 dialog::backdrop{background:rgba(10,14,28,.38);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .sheet{display:flex;flex-direction:column;max-height:min(82vh,780px);max-height:min(82svh,780px);border-radius:32px;overflow:hidden;background:var(--sheet);
   -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);box-shadow:inset 0 1px 0 var(--rim),0 30px 80px -20px var(--shadow)}
 .sheet-head{display:flex;justify-content:space-between;align-items:center;padding:20px 20px 10px 28px}
-.sheet-head h2{margin:0;font-size:1.5rem;letter-spacing:-.02em}
-.close{width:44px;height:44px;border:0;border-radius:50%;cursor:pointer;color:var(--ink);background:rgba(127,127,127,.2);font-size:1.4rem;line-height:1}
+.sheet-head h2{margin:0;display:flex;align-items:center;gap:12px;font-size:1.25rem;letter-spacing:-.02em}
+.close{position:relative;width:44px;height:44px;flex:none;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--ink);background:var(--glass);box-shadow:inset 0 1px 0 var(--rim),inset 0 -8px 14px -10px var(--rim),0 8px 18px -10px var(--shadow);transition:transform .45s cubic-bezier(.3,1.5,.5,1),background .25s,color .25s}
 .sheet-body{overflow:auto;padding:4px 28px 30px;line-height:1.6;font-size:.95rem}
 .sheet-body h3{font-size:1rem;margin:1.5em 0 .3em}
 .sheet-body p{margin:.25em 0}
@@ -325,6 +397,7 @@ dialog::backdrop{background:rgba(10,14,28,.38);-webkit-backdrop-filter:blur(10px
 
 <div class="prog" id="prog"></div>
 <i class="probe" id="probe" hidden></i>
+<button class="glass mini" id="mini" aria-label="Back to top"><img id="miniImg" alt=""><span id="miniName"></span></button>
 <div class="bar">
   <button class="glass tool" id="bgBtn" aria-label="Change background" title="Change background (hold to reset)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg></button><input type="file" id="bgFile" accept="image/*" hidden>
   <button class="glass tool" id="theme" aria-label="Toggle light or dark mode"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 010 18z" fill="currentColor"/></svg></button>
@@ -342,38 +415,37 @@ dialog::backdrop{background:rgba(10,14,28,.38);-webkit-backdrop-filter:blur(10px
   <div class="glass contact rise" style="--dl:940ms"><span><b>Business inquiries</b><small id="mail"></small></span><button class="btn" id="copyMail">Copy email</button></div>
 
   <section class="sec" id="links">
-    <h2 class="sh reveal"><i class="led"></i><b>01</b> Find me</h2>
+    <h2 class="sh reveal"><i class="led"></i><b>01</b> <span class="lbl">Find me</span></h2>
     <nav class="links" id="linkList" aria-label="Social profiles"></nav>
   </section>
   <nav class="legal-nav" id="legalNav" aria-label="Legal"></nav>
 
-  <div class="ticker" id="ticker" aria-hidden="true"><div class="trk" id="trk"></div></div>
+  <div class="ticker" id="ticker" aria-hidden="true"><canvas id="led"></canvas></div>
 
   <section class="sec" id="about">
-    <h2 class="sh reveal"><i class="led"></i><b>02</b> About</h2>
+    <h2 class="sh reveal"><i class="led"></i><b>02</b> <span class="lbl">About</span></h2>
     <div class="glass intro reveal" id="intro"><p id="introText"></p><div class="chips" id="chips"></div></div>
     <div class="glass card reveal"><h3 class="sub">Where to find what</h3><ul class="guide" id="guide"></ul></div>
   </section>
 
   <section class="sec" id="info">
-    <h2 class="sh reveal"><i class="led"></i><b>03</b> Info</h2>
-    <div class="glass card reveal"><canvas id="dm" width="275" height="77" aria-label="Local time"></canvas><div class="cap2"><span id="place"></span><span id="datestr"></span></div></div>
+    <h2 class="sh reveal"><i class="led"></i><b>03</b> <span class="lbl">Info</span></h2>
+    <div class="glass card reveal"><canvas id="dm" width="275" height="77" aria-label="Local time"></canvas><div class="cap2"><span>Local time</span><span id="datestr"></span></div></div>
     <div class="glass card reveal"><h3 class="sub">Spec sheet</h3><ul class="spec" id="facts"></ul></div>
-    <div class="glass card reveal" id="setupCard"><h3 class="sub">Setup</h3><ul class="spec" id="setup"></ul></div>
+    <div class="glass card reveal" id="setupCard"><h3 class="sub">Devices and Peripherals</h3><ul class="spec" id="setup"></ul></div>
     <div class="glass card deck reveal">
       <i class="strip"></i>
-      <div class="knob" id="knob" role="slider" tabindex="0" aria-label="Accent colour" aria-valuemin="0" aria-valuemax="360" aria-valuenow="18"><i class="kcap"><b></b></i></div>
+      <div class="kwrap"><div class="knob" id="knob" role="slider" tabindex="0" aria-label="Accent colour" aria-valuemin="0" aria-valuemax="360" aria-valuenow="18"><i class="kcap"><b></b></i></div><small>Accent</small></div>
       <div class="keys">
         <button class="key" id="kCard"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2"/><path d="M6.5 16c.6-1.6 4.400-1.600 5 0M14 10h4M14 14h3"/></svg><small>Contact</small></button>
         <button class="key" id="kBio"><svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h14M5 18h9"/></svg><small>Bio</small></button>
         <button class="key acc" id="kLink"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.700 0l3-3a4 4 0 00-5.700-5.700l-1 1M14 10a4 4 0 00-5.700 0l-3 3a4 4 0 005.700 5.700l1-1"/></svg><small>Link</small></button>
       </div>
-      <p class="hint">Turn the knob to retune the accent colour</p>
     </div>
   </section>
 
   <section class="sec" id="play">
-    <h2 class="sh reveal"><i class="led"></i><b>04</b> Play</h2>
+    <h2 class="sh reveal"><i class="led"></i><b>04</b> <span class="lbl">Play</span></h2>
     <section class="glass arcade reveal" id="arcade" data-g="snake" aria-label="Arcade">
       <i class="strip"></i>
       <div class="seg" id="seg"><i class="pill"></i><button class="on" data-g="snake">Snake</button><button data-g="tetris">Tetris</button></div>
@@ -386,15 +458,18 @@ dialog::backdrop{background:rgba(10,14,28,.38);-webkit-backdrop-filter:blur(10px
     </section>
   </section>
 
-  <footer class="foot"><span><i class="led"></i> No cookies, no trackers</span><span id="foot2"></span></footer>
+  <footer class="foot"><span><i class="led"></i> No cookies, no trackers</span><span id="foot2"></span><div class="wave" id="wave" aria-hidden="true"></div></footer>
 </main>
 
+<aside class="rail l" aria-label="Section index"><div class="glass idxcard"><i class="trace" id="trace"><b></b></i><nav id="idx"></nav></div></aside>
+<aside class="rail r"><div class="qk" id="qk"></div><div class="glass livecard"><canvas id="dm2" width="125" height="35" aria-hidden="true"></canvas><div class="eq" id="eq" aria-hidden="true"></div></div></aside>
+<div class="meter" id="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <nav class="glass dock" id="dock" aria-label="Sections"><i class="ind"></i><a href="#top" aria-label="Back to top">&uarr;</a><a href="#links" data-t="#links">Links</a><a href="#about" data-t="#about">About</a><a href="#info" data-t="#info">Info</a><a href="#play" data-t="#play">Play</a></nav>
 <div class="toast glass" id="toast" role="status"></div>
 
 <dialog id="legal" aria-labelledby="legalTitle">
   <div class="sheet">
-    <div class="sheet-head"><h2 id="legalTitle"></h2><button class="close" id="legalClose" aria-label="Close">&times;</button></div>
+    <div class="sheet-head"><h2 id="legalTitle"></h2><button class="close" id="legalClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="sheet-body" id="legalBody"></div>
   </div>
 </dialog>
@@ -405,7 +480,6 @@ dialog::backdrop{background:rgba(10,14,28,.38);-webkit-backdrop-filter:blur(10px
 const CONFIG = {
   name: "solarized",
   taglines: ["I create all sorts of Tech-Content, mostly aesthetic-based.", "I mainly post on TikTok. Who knows, maybe I'll post on YouTube one day.", "Come say hi on my Discord"],
-  place: "Hamburg",
   timezone: "Europe/Berlin",
   avatar: "pfp.jpg",
   background: "mountains-wallpaper-3840x2160-iphone-4k-12461.jpg",
@@ -430,15 +504,15 @@ const CONFIG = {
     { icon: "discord",   title: "Discord",   text: "Come hang out with the community." }
   ],
   facts: [
-    ["Based in", "Hamburg, Germany"],
+    ["Based in", "Germany"],
     ["Languages", "German, English"],
     ["Focus", "Tech content and aesthetics"],
     ["Active on", "TikTok, Instagram, Discord"],
     ["Business", "Via email, see the top of the page, or TikTok DMs"],
     ["Community", "Discord server"]
   ],
-  setup: ["Oppo Find X8 Ultra", "Xiaomi Pad 7 Ultra", "CMF Watch 3 Pro", "Oneplus Buds Pro 3", "Attackshark X75","Nothing Phone (3a)","Nothing Ear (a)"],   // adding gear later ["Phone", "..."] pairs and a setup card appears
-  ticker: ["Tech content", "Aesthetics", "Photography", "Hamburg", "Join the Discord"],
+  setup: ["Oppo Find X8 Ultra", "Xiaomi Pad 7 Ultra", "CMF Watch 3 Pro", "Oneplus Buds Pro 3", "Attackshark X75","Nothing Phone (3a)","Nothing Ear (a)"],
+  ticker: ["Tech content", "Aesthetics", "Photography", "Join the Discord"],
 
   legal: [
     { id: "imprint", title: "Imprint / Impressum", sections: [
@@ -479,6 +553,10 @@ Object.assign(ICONS, {
 });
 const ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>';
 
+const LEGAL_ICONS = {
+  imprint: '<svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6"/></svg>',
+  privacy: '<svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.500 8-8 9-4.500-1-8-4-8-9V6zM9 12l2 2 4-4"/></svg>'
+};
 const $ = id => document.getElementById(id);
 const h = (tag, attrs = {}, ...kids) => {
   const el = document.createElement(tag);
@@ -496,6 +574,7 @@ CONFIG.name.split(" ").forEach((w, k, a) => {
   $("name").append(wd, k < a.length - 1 ? " " : "");
 });
 $("avatar").src = CONFIG.avatar || PLACEHOLDER_AVATAR;
+$("miniImg").src = $("avatar").src; $("miniName").textContent = CONFIG.name;
 $("bg").style.setProperty("--bg-blur", CONFIG.backgroundBlur + "px");
 const setBg = u => { $("bg").style.backgroundImage = u ? `url("${u.replace(/"/g, "%22")}")` : ""; };
 setBg(CONFIG.background);
@@ -511,17 +590,21 @@ CONFIG.links.forEach((l, i) => $("linkList").append(
     h("span", { class: "arrow", html: ARROW }),
     h("span", { class: "txt" }, h("b", {}, l.label), h("small", {}, l.handle)))
 ));
-CONFIG.legal.forEach((d, i) => $("legalNav").append(
-  h("a", { class: "glass rise", style: `--dl:${1000 + (CONFIG.links.length + i) * 90}ms`, href: "#" + d.id, "data-legal": d.id }, d.title)
-));
+CONFIG.legal.forEach((d, i) => {
+  const [main, sub] = d.title.split(" / ");
+  $("legalNav").append(h("a", { class: "glass rise", style: `--dl:${1000 + (CONFIG.links.length + i) * 90}ms`, href: "#" + d.id, "data-legal": d.id },
+    h("span", { class: "pi", html: LEGAL_ICONS[d.id] || ICONS.link }),
+    h("span", { class: "pt" }, h("b", {}, main), sub ? h("small", {}, sub) : "")));
+});
 
 const dlg = $("legal");
 function openLegal(id) {
   const d = CONFIG.legal.find(x => x.id === id);
   if (!d) return;
-  $("legalTitle").textContent = d.title;
+  $("legalTitle").replaceChildren(h("span", { class: "pi", html: LEGAL_ICONS[d.id] || ICONS.link }), d.title);
   $("legalBody").replaceChildren(...d.sections.flatMap(s => [h("h3", {}, s.h), ...s.p.map(t => h("p", {}, t))]));
   $("legalBody").scrollTop = 0;
+  [...$("legalBody").children].forEach((el, i) => el.style.setProperty("--j", Math.min(i, 12)));
   if (!dlg.open) dlg.showModal();
 }
 $("legalNav").addEventListener("click", e => {
@@ -531,8 +614,15 @@ $("legalNav").addEventListener("click", e => {
   openLegal(a.dataset.legal);
   try { history.replaceState(null, "", "#" + a.dataset.legal); } catch (_) {}
 });
-$("legalClose").addEventListener("click", () => dlg.close());
-dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+const closeLegal = () => {
+  if (!dlg.open) return;
+  if (still.matches) return dlg.close();
+  dlg.classList.add("out");
+  setTimeout(() => { dlg.classList.remove("out"); dlg.close(); }, 230);
+};
+$("legalClose").addEventListener("click", closeLegal);
+dlg.addEventListener("click", e => { if (e.target === dlg) closeLegal(); });
+dlg.addEventListener("cancel", e => { e.preventDefault(); closeLegal(); });
 dlg.addEventListener("close", () => { try { history.replaceState(null, "", location.pathname + location.search); } catch (_) {} });
 const syncHash = () => { const id = location.hash.slice(1); CONFIG.legal.some(d => d.id === id) ? openLegal(id) : dlg.open && dlg.close(); };
 addEventListener("hashchange", syncHash);
@@ -561,13 +651,18 @@ let queued = false, cur = 0, tgt = 0, flow = 0;
 function frame() {
   queued = false;
   const y = scrollY, vh = innerHeight, max = root.scrollHeight - vh;
-  $("prog").style.transform = `scaleX(${max > 0 ? clamp(y / max) : 0})`;
+  const pr = max > 0 ? clamp(y / max) : 0, mt = $("meter"), mn = Math.round(pr * 22);
+  $("prog").style.clipPath = `inset(0 ${100 - pr * 100}% 0 0)`;
+  mt.classList.toggle("show", y > 40);
+  if (mn !== frame.n) { frame.n = mn; [...mt.children].forEach((d, i) => { d.classList.toggle("on", i < mn); d.classList.toggle("head", i === mn - 1); }); }
   $("dock").classList.toggle("show", y > 380);
+  $("mini").classList.toggle("show", y > 380);
+  $("trace").style.setProperty("--p", max > 0 ? clamp(y / max) : 0);
   if (still.matches) return;
   const k = clamp(y / (vh * .6));
   hero.style.transform = `translate3d(0,${y * .18}px,0) scale(${1 - k * .08})`;
   hero.style.opacity = 1 - k * .9;
-  bg.style.transform = `translate3d(0,${-Math.min(y * .05, vh * .1)}px,0)`;
+  bg.style.transform = `translate3d(0,${-Math.min(y * .05, vh * .1)}px,0) scale(${1 + (max > 0 ? clamp(y / max) : 0) * .08})`;
   const r = $("intro").getBoundingClientRect();
   tgt = clamp((vh * .92 - r.top) / (vh * .45 + r.height * .3));
   if (!flow) flow = requestAnimationFrame(step);
@@ -587,11 +682,12 @@ frame();
 const rio = new IntersectionObserver((es, o) => es.forEach(e => {
   if (!e.isIntersecting) return;
   e.target.classList.add("in"); o.unobserve(e.target);
+  const lb = e.target.querySelector(".lbl"); if (lb) decode(lb);
 }), { threshold: .2 });
 document.querySelectorAll(".reveal").forEach(el => rio.observe(el));
 
 const clock = () => {
-  try { $("clock").textContent = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: CONFIG.timezone }).format(new Date()) + " in " + CONFIG.place; }
+  try { $("clock").textContent = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: CONFIG.timezone }).format(new Date()) + " my time"; }
   catch (_) { $("clock").parentElement.hidden = true; }
 };
 clock(); setInterval(clock, 30000);
@@ -680,14 +776,25 @@ const hr = new Date().getHours();
 $("hello").textContent = hr < 5 ? "Hello, night owl" : hr < 12 ? "Good morning" : hr < 18 ? "Good afternoon" : "Good evening";
 CONFIG.topics.forEach(t => $("chips").append(h("span", {}, t)));
 CONFIG.guide.forEach(g => $("guide").append(h("li", {}, h("span", { class: "ico", html: ICONS[g.icon] || ICONS.link }), h("span", {}, h("b", {}, g.title), h("small", {}, g.text)))));
-const spec = (el, rows) => rows.forEach(([k, v]) => el.append(h("li", {}, h("span", {}, k), h("i"), h("b", {}, v))));
+const spec = (el, rows) => rows.forEach((r, idx) => { const [k, v] = typeof r === "string" ? [String(idx + 1).padStart(2, "0"), r] : r; el.append(h("li", {}, h("span", {}, k), h("i"), h("b", {}, v))); });
 spec($("facts"), CONFIG.facts);
 if (CONFIG.setup && CONFIG.setup.length) spec($("setup"), CONFIG.setup); else $("setupCard").hidden = true;
-$("foot2").textContent = "\u00a9 " + new Date().getFullYear() + " " + CONFIG.name + ", " + CONFIG.place;
-$("place").textContent = CONFIG.place;
+$("foot2").textContent = "\u00a9 " + new Date().getFullYear() + " " + CONFIG.name;
 try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CONFIG.timezone, weekday: "short", day: "numeric", month: "short", timeZoneName: "short" }).format(new Date()); } catch (_) {}
 
-/* name decodes into place on load and on hover */
+const GLY = "01<>/\\[]{}#*+=";
+const decode = el => {
+  if (still.matches || root.classList.contains("lite")) return;
+  const fin = el.textContent; let t = 0;
+  const iv = setInterval(() => {
+    t += 40;
+    el.textContent = [...fin].map((ch, i) => ch === " " || t > 240 + i * 50 ? ch : GLY[Math.floor(Math.random() * GLY.length)]).join("");
+    if (t > 240 + fin.length * 50) { clearInterval(iv); el.textContent = fin; }
+  }, 40);
+};
+document.querySelectorAll(".spec,.guide,.chips").forEach(l => [...l.children].forEach((el, i) => el.style.setProperty("--j", i)));
+const wv = $("wave"); for (let i = 0; i < 14; i++) wv.append(h("i", { style: `--i:${i}` }));
+
 (() => {
   const chs = [...document.querySelectorAll(".ch")], fin = chs.map(c => c.textContent), GL = "01<>/\\[]{}#*+=";
   let busy = false;
@@ -708,34 +815,44 @@ try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CO
   $("name").addEventListener("pointerenter", run);
 })();
 
-/* dot-matrix clock */
 (() => {
-  const cv = $("dm"), c = cv.getContext("2d"), probe = $("probe");
+  const cvs = [[$("dm"), 11], [$("dm2"), 5]], ctx = cvs.map(([cv]) => cv.getContext("2d")), probe = $("probe");
   const F = ["01110 10001 10011 10101 11001 10001 01110", "00100 01100 00100 00100 00100 00100 01110", "01110 10001 00001 00010 00100 01000 11111", "11110 00001 00001 01110 00001 00001 11110", "00010 00110 01010 10010 11111 00010 00010",
     "11111 10000 11110 00001 00001 10001 01110", "00110 01000 10000 11110 10001 10001 01110", "11111 00001 00010 00100 01000 01000 01000", "01110 10001 10001 01110 10001 10001 01110", "01110 10001 10001 01111 00001 00010 01100"].map(s => s.split(" "));
+  let boot = still.matches ? -1e9 : null;
   const draw = () => {
     let t; try { t = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: CONFIG.timezone }).format(new Date()); } catch (_) { t = new Date().toTimeString().slice(0, 5); }
-    const on = getComputedStyle(document.body).color, acc = getComputedStyle(probe).color, blink = new Date().getSeconds() % 2 === 0, P = 11;
-    const dot = (x, y, lit, col) => { c.globalAlpha = lit ? 1 : .13; c.fillStyle = lit ? col : on; c.beginPath(); c.arc(x * P + 5.5, y * P + 5.5, 3.7, 0, 7); c.fill(); };
-    c.clearRect(0, 0, 275, 77);
-    let x = 0;
-    [...t.replace(":", "")].forEach((ch, k) => {
-      if (k === 2) { for (let y = 0; y < 7; y++) dot(x, y, (y === 2 || y === 4) && blink, acc); x += 2; }
-      F[+ch].forEach((row, y) => [...row].forEach((b, i) => dot(x + i, y, b === "1", on)));
-      x += 6;
+    const on = getComputedStyle(document.body).color, acc = getComputedStyle(probe).color, blink = new Date().getSeconds() % 2 === 0;
+    const cu = boot === null ? 0 : Math.min(26, (performance.now() - boot) / 900 * 26);
+    cvs.forEach(([, P], n) => {
+      const c = ctx[n], lim = n ? 99 : cu;
+      const dot = (x, y, lit, col) => { lit = lit && x < lim; c.globalAlpha = lit ? 1 : .13; c.fillStyle = lit ? col : on; c.beginPath(); c.arc(x * P + P / 2, y * P + P / 2, P * .34, 0, 7); c.fill(); };
+      c.clearRect(0, 0, 25 * P, 7 * P);
+      let x = 0;
+      [...t.replace(":", "")].forEach((ch, k) => {
+        if (k === 2) { for (let y = 0; y < 7; y++) dot(x, y, (y === 2 || y === 4) && blink, acc); x += 2; }
+        F[+ch].forEach((row, y) => [...row].forEach((b, i) => dot(x + i, y, b === "1", on)));
+        x += 6;
+      });
+      c.globalAlpha = 1;
     });
-    c.globalAlpha = 1;
   };
   draw(); setInterval(() => { if (!document.hidden) draw(); }, 1000);
+  new IntersectionObserver(([e], o) => {
+    if (!e.isIntersecting) return;
+    boot = performance.now(); o.disconnect();
+    const tick = () => { draw(); if (performance.now() - boot < 950) requestAnimationFrame(tick); };
+    tick();
+  }).observe($("dm"));
 })();
 
-/* accent knob + keycaps */
 (() => {
-  const k = $("knob");
+  const k = $("knob"), ticks = Array.from({ length: 19 }, (_, i) => { const t = h("i", { class: "tick", style: `--a:${-135 + i * 15}deg` }); k.prepend(t); return t; });
   let hue = 18, drag = false, last = 18;
   try { const sv = localStorage.getItem("hue"); if (sv !== null && !isNaN(+sv)) hue = +sv; } catch (_) {}
   const set = (v, save) => {
     hue = clamp(v, 0, 360);
+    ticks.forEach((t, i) => t.classList.toggle("on", i / 18 <= hue / 360 + .001));
     root.style.setProperty("--hue", hue); k.style.setProperty("--rot", (hue / 360 * 270 - 135) + "deg"); k.setAttribute("aria-valuenow", Math.round(hue));
     if (Math.floor(hue / 24) !== Math.floor(last / 24) && navigator.vibrate) navigator.vibrate(4);
     last = hue;
@@ -764,30 +881,52 @@ try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CO
   $("kLink").addEventListener("click", () => copy(location.href.split("#")[0], "Link copied"));
 })();
 
-/* ticker: drifts on its own and speeds up while you scroll */
 (() => {
-  const trk = $("trk");
+  const cv = $("led"), c = cv.getContext("2d"), probe = $("probe"), P = 8;
   if (!CONFIG.ticker || !CONFIG.ticker.length) { $("ticker").hidden = true; return; }
-  for (let i = 0; i < 4; i++) trk.append(h("div", {}, ...CONFIG.ticker.map(t => h("span", {}, t))));
-  let x = 0, vel = 0, last = scrollY, vis = false, raf = 0, w = 0;
-  const loop = () => {
+  const FONT = "7E1111117E 7F49494936 3E41414122 7F4141221C 7F49494941 7F09090901 3E4149497A 7F0808087F 00417F4100 2040413F01 7F08142241 7F40404040 7F020C027F 7F0408107F 3E4141413E 7F09090906 3E4151215E 7F09192946 4649494931 01017F0101 3F4040403F 1F2040201F 3F4038403F 6314081463 0708700807 6151494543".split(" ").map(x => x.match(/../g).map(b => parseInt(b, 16)));
+  const cols = [];
+  CONFIG.ticker.forEach(t => {
+    [...t.toUpperCase()].forEach(ch => { const f = FONT[ch.charCodeAt(0) - 65]; if (f) cols.push(...f, 0); else cols.push(0, 0, 0); });
+    cols.push(0, 0, 0, 0x88, 0x9C, 0x88, 0, 0, 0, 0);
+  });
+  let off = 0, vel = 0, sk = 0, last = scrollY, t0 = 0, vis = false, raf = 0, ink = "", acc = "", ct = 0, W = 0, odd = 0;
+  const fit = () => { W = cv.clientWidth; const d = Math.min(devicePixelRatio || 1, 2); cv.width = W * d; cv.height = 7 * P * d; c.setTransform(d, 0, 0, d, 0, 0); };
+  const draw = () => {
+    const now = performance.now();
+    if (now - ct > 600) { ink = getComputedStyle(document.body).color; acc = getComputedStyle(probe).color; ct = now; }
+    const n = Math.ceil(W / P) + 2, base = Math.floor(off), fr = (off - base) * P, lit = new Path2D(), sep = new Path2D(), dim = new Path2D();
+    for (let i = 0; i < n; i++) {
+      const v = cols[(base + i) % cols.length];
+      for (let r = 0; r < 7; r++) {
+        const x = i * P - fr + P / 2, y = r * P + P / 2, p = (v >> r) & 1 ? (v & 128 ? sep : lit) : dim;
+        p.moveTo(x + 2.6, y); p.arc(x, y, 2.6, 0, 7);
+      }
+    }
+    c.clearRect(0, 0, W, 7 * P);
+    c.fillStyle = ink; c.globalAlpha = .14; c.fill(dim);
+    c.globalAlpha = 1; c.fill(lit);
+    c.fillStyle = acc; c.fill(sep);
+  };
+  const loop = t => {
     raf = 0; if (!vis) return;
+    const dt = Math.min(50, t - t0 || 16); t0 = t;
     const dy = scrollY - last; last = scrollY;
-    vel += (Math.min(14, Math.abs(dy) * .25) - vel) * .1;
-    w = w || trk.firstElementChild.offsetWidth;
-    x -= .55 + vel; if (x <= -w) x += w;
-    trk.style.transform = `translate3d(${x}px,0,0)`;
+    vel += (Math.min(1, Math.abs(dy) * .02) - vel) * .12;
+    sk += (Math.max(-1, Math.min(1, dy * .02)) - sk) * .12; $("ticker").style.transform = `skewX(${(-sk * 10).toFixed(2)}deg)`;
+    off = (off + dt / 1000 * (9 + vel * 70)) % cols.length;
+    if (!(root.classList.contains("lite") && (odd ^= 1))) draw();
     raf = requestAnimationFrame(loop);
   };
-  new IntersectionObserver(([e]) => { vis = e.isIntersecting; if (vis && !raf && !still.matches) { last = scrollY; raf = requestAnimationFrame(loop); } }).observe($("ticker"));
-  addEventListener("resize", () => { w = 0; });
+  fit(); draw();
+  new IntersectionObserver(([e]) => { vis = e.isIntersecting; if (vis && !raf && !still.matches) { t0 = performance.now(); last = scrollY; raf = requestAnimationFrame(loop); } }).observe($("ticker"));
+  addEventListener("resize", () => { fit(); draw(); });
 })();
 
-/* dock: appears after the hero, follows the section you are in */
 (() => {
   const dock = $("dock"), items = [...dock.querySelectorAll("a")], ind = dock.querySelector(".ind");
   let act = items[0], q = 0;
-  const place = () => { ind.style.width = act.offsetWidth + "px"; ind.style.transform = `translateX(${act.offsetLeft}px)`; items.forEach(a => a.classList.toggle("on", a === act)); };
+  const place = () => { ind.style.width = act.offsetWidth + "px"; ind.style.transform = `translateX(${act.offsetLeft}px)`; items.forEach(a => a.classList.toggle("on", a === act)); document.querySelectorAll("#idx a").forEach(a => a.classList.toggle("on", a.dataset.t === act.dataset.t)); };
   const upd = () => {
     q = 0; let cur = items[0];
     items.forEach(a => { if (a.dataset.t && document.querySelector(a.dataset.t).getBoundingClientRect().top < innerHeight * .45) cur = a; });
@@ -802,6 +941,27 @@ try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CO
   addEventListener("resize", place); place(); setTimeout(place, 800);
 })();
 
+(() => {
+  const idx = $("idx");
+  document.querySelectorAll(".sec").forEach(sec => idx.append(h("a", { href: "#" + sec.id, "data-t": "#" + sec.id }, h("b", {}, sec.querySelector(".sh b").textContent), h("span", {}, sec.querySelector(".lbl").textContent))));
+  idx.addEventListener("click", e => {
+    const a = e.target.closest("a"); if (!a) return;
+    e.preventDefault(); document.querySelector(a.dataset.t).scrollIntoView({ behavior: still.matches ? "auto" : "smooth", block: "start" });
+  });
+  CONFIG.links.forEach(l => $("qk").append(h("a", { class: "glass qi", href: l.url, target: "_blank", rel: "noopener noreferrer me", title: l.label, "aria-label": l.label, html: ICONS[l.icon] || ICONS.link })));
+  const eq = $("eq"); for (let i = 0; i < 12; i++) eq.append(h("i", { style: `--i:${i}` }));
+  let t = 0;
+  addEventListener("scroll", () => { eq.classList.add("hot"); clearTimeout(t); t = setTimeout(() => eq.classList.remove("hot"), 250); }, { passive: true });
+  $("mini").addEventListener("click", () => scrollTo({ top: 0, behavior: still.matches ? "auto" : "smooth" }));
+  if (matchMedia("(hover:hover)").matches && !still.matches) document.querySelectorAll(".tool,.key,.qi,.legal-nav a").forEach(b => {
+    b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); b.style.translate = `${(e.clientX - r.left - r.width / 2) * .22}px ${(e.clientY - r.top - r.height / 2) * .22}px`; });
+    b.addEventListener("pointerleave", () => {
+      const from = b.style.translate || "0 0"; b.style.translate = "";
+      b.animate({ translate: [from, "0 0"] }, { duration: 350, easing: "cubic-bezier(.3,1.6,.5,1)" });
+    });
+  });
+})();
+
 /*snake and tetris*/
 (() => {
   const cv = $("cv"), c = cv.getContext("2d"), ov = $("over"), box = $("arcade"), games = {}, bests = { snake: 0, tetris: 0 };
@@ -813,6 +973,12 @@ try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CO
   const finish = (n, sc) => { setState("idle"); bests[n] = Math.max(bests[n], sc); $("best").textContent = bests[n]; show("Game over", "You scored " + sc, "Play again"); };
   const same = (a, b) => a.x === b.x && a.y === b.y;
   const rc = (x, y, w, r) => { c.beginPath(); c.roundRect(x, y, w, w, r); c.fill(); };
+  const grid = (cols, rows, s, ox = 0) => {
+    c.save(); c.strokeStyle = ink(); c.globalAlpha = .16; c.lineWidth = 1; c.beginPath();
+    for (let i = 0; i <= cols; i++) { c.moveTo(ox + i * s + .5, 0); c.lineTo(ox + i * s + .5, rows * s); }
+    for (let j = 0; j <= rows; j++) { c.moveTo(ox, j * s + .5); c.lineTo(ox + cols * s, j * s + .5); }
+    c.stroke(); c.restore();
+  };
 
   games.snake = (() => {
     const N = 14, R = 16, S = 20; let sn, dir, nxt, food, score, speed, timer;
@@ -829,9 +995,7 @@ try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CO
     }
     function draw() {
       c.clearRect(0, 0, 280, 320);
-      c.fillStyle = ink(); c.globalAlpha = .18;
-      for (let x = 0; x < N; x++) for (let y = 0; y < R; y++) c.fillRect(x * S + 9, y * S + 9, 2, 2);
-      c.globalAlpha = 1;
+      grid(N, R, S);
       if (!sn) return;
       c.fillStyle = "#ff5a8a"; c.beginPath(); c.arc(food.x * S + 10, food.y * S + 10, 7, 0, 7); c.fill();
       sn.forEach((p, i) => { c.fillStyle = `hsl(${210 + i * 7} 90% 62%)`; rc(p.x * S + 1.5, p.y * S + 1.5, S - 3, i ? 6 : 9); });
@@ -866,10 +1030,14 @@ try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CO
     function down() { if (!hit(p.m, p.x, p.y + 1)) p.y++; else lock(); draw(); }
     function draw() {
       c.clearRect(0, 0, 280, 320);
-      c.fillStyle = "rgba(127,127,127,.14)"; c.fillRect(OX, 0, COLS * S, ROWS * S);
+      c.fillStyle = "rgba(127,127,127,.14)"; c.fillRect(OX, 0, COLS * S, ROWS * S); grid(COLS, ROWS, S, OX);
       const cell = (x, y, k, s) => { c.fillStyle = COL[k]; rc(x + 1, y + 1, s - 2, 4); };
       if (b) b.forEach((r, j) => r.forEach((v, i) => v && cell(OX + i * S, j * S, v, S)));
-      if (p) p.m.forEach((r, j) => r.forEach((v, i) => v && cell(OX + (p.x + i) * S, (p.y + j) * S, p.k, S)));
+      if (p) {
+        let gy = p.y; while (!hit(p.m, p.x, gy + 1)) gy++;
+        c.globalAlpha = .28; p.m.forEach((r, j) => r.forEach((v, i) => v && cell(OX + (p.x + i) * S, (gy + j) * S, p.k, S))); c.globalAlpha = 1;
+        p.m.forEach((r, j) => r.forEach((v, i) => v && cell(OX + (p.x + i) * S, (p.y + j) * S, p.k, S)));
+      }
       if (nx) SH[nx].forEach((r, j) => r.forEach((v, i) => v && cell(PX + i * 14, 34 + j * 14, nx, 14)));
       c.fillStyle = ink(); c.font = "600 12px -apple-system,system-ui,sans-serif";
       c.fillText("NEXT", PX, 22); c.fillText("LINES", PX, 140); c.fillText("LEVEL", PX, 200);
@@ -897,21 +1065,43 @@ try { $("datestr").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: CO
     g = games[n]; setState("idle"); box.dataset.g = n;
     $("seg").querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.g === n));
     setScore(0); $("best").textContent = bests[n];
+    const up = $("pad").querySelector('[data-k="U"]'); up.innerHTML = n === "tetris" ? "&#8635;" : "&uarr;"; up.setAttribute("aria-label", n === "tetris" ? "Rotate" : "Up");
     show(n === "snake" ? "Snake" : "Tetris", g.hint, "Play"); g.draw();
   };
   $("seg").addEventListener("click", e => { const b = e.target.closest("[data-g]"); if (b) select(b.dataset.g); });
   $("playBtn").addEventListener("click", () => begin(state === "pause"));
-  $("pad").addEventListener("pointerdown", e => { const b = e.target.closest("[data-k]"); if (b && state === "play") { e.preventDefault(); g.key(b.dataset.k); } });
+  const fire = k => { if (state === "play") { g.key(k); if (navigator.vibrate) navigator.vibrate(6); } };
+  let rp = 0, rt = 0;
+  const stopRep = () => { clearTimeout(rt); clearInterval(rp); };
+  $("pad").addEventListener("pointerdown", e => {
+    const b = e.target.closest("[data-k]"); if (!b || state !== "play") return;
+    e.preventDefault(); const k = b.dataset.k; fire(k); stopRep();
+    if (box.dataset.g === "tetris" && "LRD".includes(k)) rt = setTimeout(() => { rp = setInterval(() => fire(k), 70); }, 220);
+  });
+  ["pointerup", "pointercancel", "pointerleave"].forEach(ev => $("pad").addEventListener(ev, stopRep));
+  $("pad").addEventListener("contextmenu", e => e.preventDefault());
+  ov.addEventListener("click", e => { if (!e.target.closest("button")) $("playBtn").click(); });
   addEventListener("keydown", e => {
     const k = { ArrowLeft: "L", a: "L", ArrowRight: "R", d: "R", ArrowUp: "U", w: "U", ArrowDown: "D", s: "D", " ": "X" }[e.key];
     if (k && state === "play") { e.preventDefault(); g.key(k); }
   });
-  let t0;
-  cv.addEventListener("touchstart", e => { t0 = e.touches[0]; }, { passive: true });
+  let tp = null;
+  cv.addEventListener("touchstart", e => { if (state !== "play") return; const t = e.touches[0]; tp = { x: t.clientX, y: t.clientY, y0: t.clientY, t: performance.now(), moved: false }; }, { passive: true });
+  cv.addEventListener("touchmove", e => {
+    if (!tp || state !== "play") return;
+    const t = e.touches[0], dx = t.clientX - tp.x, dy = t.clientY - tp.y, tet = box.dataset.g === "tetris", st = tet ? 26 : 18;
+    if (tet) {
+      if (Math.abs(dx) >= st && Math.abs(dx) > Math.abs(dy)) { fire(dx > 0 ? "R" : "L"); tp.x += Math.sign(dx) * st; tp.moved = true; }
+      else if (dy >= st && Math.abs(dy) > Math.abs(dx)) { fire("D"); tp.y += st; tp.moved = true; }
+    } else if (Math.max(Math.abs(dx), Math.abs(dy)) >= st) {
+      fire(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "R" : "L") : (dy > 0 ? "D" : "U")); tp.x = t.clientX; tp.y = t.clientY; tp.moved = true;
+    }
+  }, { passive: true });
   cv.addEventListener("touchend", e => {
-    const t = e.changedTouches[0], dx = t.clientX - t0.clientX, dy = t.clientY - t0.clientY;
-    if (state !== "play" || box.dataset.g !== "snake" || Math.max(Math.abs(dx), Math.abs(dy)) < 20) return;
-    g.key(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "R" : "L") : (dy > 0 ? "D" : "U"));
+    if (!tp) return;
+    const t = e.changedTouches[0], dt = performance.now() - tp.t;
+    if (box.dataset.g === "tetris") { if (!tp.moved && dt < 250) fire("U"); else if (t.clientY - tp.y0 > 90 && dt < 260) fire("X"); }
+    tp = null;
   });
   new IntersectionObserver(([e]) => { if (!e.isIntersecting) pause(); }).observe(box);
   document.addEventListener("visibilitychange", () => document.hidden && pause());
